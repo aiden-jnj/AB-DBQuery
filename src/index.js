@@ -54,6 +54,33 @@ const parseInsertValues = values => {
 }
 
 /**
+ * Returns after converting it into table join clause to be used in query statement using passed argument.
+ *
+ * @param {String} [type='INNER'] Join type to be used in table join query statement.
+ * @param {String} table Table name of joined target table to use in join query statement.
+ * @param {String} on Constraint for to use table join.
+ * @returns String converted to table join clause to be used in query statement.
+ */
+const parseJoin = (type, table, on) => {
+  let clause = ``
+
+  type = !type || !type.length ? 'INNER' : type
+  if (!type || type.constructor.name !== 'String') return clause
+  if (!table || table.constructor.name !== 'String' || !table.length) return clause
+  if (!on || on.constructor.name !== 'String') return clause
+
+  type = String(type).toUpperCase()
+
+  clause += ` ${type} JOIN`
+  clause += ` ${table}`
+  if (type !== 'CROSS' && on.length) {
+    clause += ` ON ${on}`
+  }
+
+  return clause
+}
+
+/**
  * Returns after converting it into limit clause to be used in query statement using passed argument.
  *
  * @param {Number} [limit=undefined] Number of rows to return to be used in query statement. If `0` no limit in used.
@@ -70,7 +97,7 @@ const parseLimit = limit => {
  * @returns {String} String converted to order by clause to be used in query statement.
  */
 const parseOrder = order => {
-  return order.constructor.name === 'String' ? ` ORDER BY ${order}` : ``
+  return order && order.constructor.name === 'String' ? ` ORDER BY ${order}` : ``
 }
 
 /**
@@ -178,6 +205,57 @@ const querySelect = (table, field, where, order, limit) => {
 }
 
 /**
+ * Returns after created `SELECT` query statement for table join using passed arguments.
+ *
+ * @param {String} table Table name to use in query statement.
+ * @param {String} [type='INNER'] Join type to be used in table join query statement.
+ * @param {String} join Table name of joined target table to use in join query statement.
+ * @param {String} on Constraint for to use table join.
+ * @param {String|Array} [field='*'] Fields to be used in query statement.
+ * @param {String|Object} [where=undefined] Where condition to be used in query statement.
+ * @param {String} [order=undefined] Order by clause to be used in query statement.
+ * @param {Number} [limit=undefined] Number of rows to return to be used in query statement. If `0` no limit in used.
+ * @returns {String} `SELECT` query statement for table join created using passed arguments.
+ */
+const querySelectJoin = (table, type, join, on, field, where, order, limit) => {
+  return `SELECT
+    ${parseField(field)}
+    ${parseTable(table)}
+    ${parseJoin(type, join, on)}
+    ${parseWhere(where)}
+    ${parseOrder(order)}
+    ${parseLimit(limit)}`
+    .replace(/\s{2,}/gi, ` `)
+}
+
+/**
+ * Returns after created `SELECT` query statement for table join using passed arguments.
+ *
+ * @param {String} table Table name to use in query statement.
+ * @param {String} [type='INNER'] Join type to be used in table join query statement.
+ * @param {String} join Table name of joined target table to use in join query statement.
+ * @param {String} on Constraint for to use table join.
+ * @param {String|Array} [field='*'] Fields to be used in query statement.
+ * @param {String|Object} [where=undefined] Where condition to be used in query statement.
+ * @param {String} [group=undefined] Group by clause to be used in query statement.
+ * @param {String} [having=undefined] Having condition to be used in group by clause of query statement.
+ * @param {String} [order=undefined] Order by clause to be used in query statement.
+ * @param {Number} [limit=undefined] Number of rows to return to be used in query statement. If `0` no limit in used.
+ * @returns {String} `SELECT` query statement for table join created using passed arguments.
+ */
+const querySelectJoinGroup = (table, type, join, on, field, where, group, having, order, limit) => {
+  return `SELECT
+    ${parseField(field)}
+    ${parseTable(table)}
+    ${parseJoin(type, join, on)}
+    ${parseWhere(where)}
+    ${parseGroup(group, having)}
+    ${parseOrder(order)}
+    ${parseLimit(limit)}`
+    .replace(/\s{2,}/gi, ` `)
+}
+
+/**
  * Returns after created `SELECT` query statement using passed arguments.
  *
  * @param {String} table Table name to use in query statement.
@@ -226,6 +304,8 @@ const ABDBQuery = {
   parseWhere,
   queryInsert,
   querySelect,
+  querySelectJoin,
+  querySelectJoinGroup,
   querySelectGroup,
   queryUpdate
 }
