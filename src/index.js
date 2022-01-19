@@ -167,7 +167,7 @@ const parseWhere = (where = null) => {
       keys.forEach((key, idx) => {
         const val = where[key] || ''
 
-        if (val.search(/<|>|<=|>=|LIKE|NOT IN/gi) > -1) {
+        if (val.search(/<|>|<=|>=|IS|LIKE|NOT IN/gi) > -1) {
           clause += ` (${key} ${val})`
         } else if (val.search(/BETWEEN/gi) > -1) {
           clause += ` (${key} ${val})`
@@ -221,6 +221,38 @@ const querySelect = (table, field = null, where = null, order = null, limit = 0)
     ${parseField(field)}
     ${parseTable(table)}
     ${parseWhere(where)}
+    ${parseOrder(order)}
+    ${parseLimit(limit)}`
+    .replace(/\s{2,}/gi, ` `)
+}
+
+/**
+ * Returns after created `SELECT` query statement using passed arguments.
+ *
+ * @param {String} table Table name to use in query statement.
+ * @param {String|Array} [field=null] Fields to be used in query statement.
+ * @param {String|Object} [where=null] Where condition to be used in query statement.
+ * @param {String} [group=null] Group by clause to be used in query statement.
+ * @param {String} [having=null] Having condition to be used in group by clause of query statement.
+ * @param {String} [order=null] Order by clause to be used in query statement.
+ * @param {Number} [limit=0] Number of rows to return to be used in query statement. If `0` no limit in used.
+ * @throws 'Not passed table name to be used in query statement!'
+ * @returns {String} `SELECT` query statement created using passed arguments.
+ */
+const querySelectGroup = (
+  table,
+  field = null,
+  where = null,
+  group = null,
+  having = null,
+  order = null,
+  limit = 0
+) => {
+  return `SELECT
+    ${parseTable(table)}
+    ${parseField(field)}
+    ${parseWhere(where)}
+    ${parseGroup(group, having)}
     ${parseOrder(order)}
     ${parseLimit(limit)}`
     .replace(/\s{2,}/gi, ` `)
@@ -300,38 +332,6 @@ const querySelectJoinGroup = (
 }
 
 /**
- * Returns after created `SELECT` query statement using passed arguments.
- *
- * @param {String} table Table name to use in query statement.
- * @param {String|Array} [field=null] Fields to be used in query statement.
- * @param {String|Object} [where=null] Where condition to be used in query statement.
- * @param {String} [group=null] Group by clause to be used in query statement.
- * @param {String} [having=null] Having condition to be used in group by clause of query statement.
- * @param {String} [order=null] Order by clause to be used in query statement.
- * @param {Number} [limit=0] Number of rows to return to be used in query statement. If `0` no limit in used.
- * @throws 'Not passed table name to be used in query statement!'
- * @returns {String} `SELECT` query statement created using passed arguments.
- */
-const querySelectGroup = (
-  table,
-  field = null,
-  where = null,
-  group = null,
-  having = null,
-  order = null,
-  limit = 0
-) => {
-  return `SELECT
-    ${parseTable(table)}
-    ${parseField(field)}
-    ${parseWhere(where)}
-    ${parseGroup(group, having)}
-    ${parseOrder(order)}
-    ${parseLimit(limit)}`
-    .replace(/\s{2,}/gi, ` `)
-}
-
-/**
  * Returns after created `UPDATE` query statement using passed arguments.
  *
  * @param {String} table Table name to use in query statement.
@@ -367,9 +367,9 @@ const ABDBQuery = {
   parseWhere,
   queryInsert,
   querySelect,
+  querySelectGroup,
   querySelectJoin,
   querySelectJoinGroup,
-  querySelectGroup,
   queryUpdate
 }
 

@@ -1,6 +1,6 @@
 {
   "name": "ab-dbquery",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "AB-DBQuery is library that generates database query statements.",
   "keywords": [
     "backend",
