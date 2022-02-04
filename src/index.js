@@ -5,9 +5,9 @@
  * @returns {String} String converted to field to be used in query statement.
  */
 const parseField = (field = null) => {
-  if (field && field.constructor.name === 'Array') {
+  if (field?.constructor.name === 'Array' && field.length > 0) {
     return ` ${field.join(', ')}`
-  } else if (field && field.constructor.name === 'String') {
+  } else if (field?.constructor.name === 'String' && field.length > 0) {
     return ` ${field}`
   } else {
     return ` *`
@@ -24,10 +24,10 @@ const parseField = (field = null) => {
 const parseGroup = (group = null, having = null) => {
   let clause = ``
 
-  if (group && group.constructor.name === 'String') {
+  if (group?.constructor.name === 'String') {
     clause = ` GROUP BY ${group}`
 
-    if (having && having.constructor.name === 'String') {
+    if (having?.constructor.name === 'String') {
       clause += ` HAVING ${having}`
     }
   }
@@ -49,7 +49,7 @@ const parseInsertValues = values => {
 
   let clause = ``
 
-  if (values && values.constructor.name === 'Object') {
+  if (values?.constructor.name === 'Object') {
     const keys = Object.keys(values)
     const vals = Object.values(values)
     clause += ` (${keys}) VALUES (${vals})`
@@ -69,15 +69,14 @@ const parseInsertValues = values => {
 const parseJoin = (type = null, table = null, on = null) => {
   let clause = ``
 
-  type = !type || !type.length ? 'INNER' : type
+  type = type || 'INNER'
   if (!type || type.constructor.name !== 'String') return clause
-  if (!table || table.constructor.name !== 'String' || !table.length) return clause
+  if (!table || table.constructor.name !== 'String') return clause
   if (!on || on.constructor.name !== 'String') return clause
 
   type = String(type).toUpperCase()
 
-  clause += ` ${type} JOIN`
-  clause += ` ${table}`
+  clause += ` ${type} JOIN ${table}`
   if (type !== 'CROSS' && on.length) {
     clause += ` ON ${on}`
   }
@@ -102,7 +101,7 @@ const parseLimit = (limit = 0) => {
  * @returns {String} String converted to order by clause to be used in query statement.
  */
 const parseOrder = (order = null) => {
-  return order && order.constructor.name === 'String' ? ` ORDER BY ${order}` : ``
+  return order?.constructor.name === 'String' ? ` ORDER BY ${order}` : ``
 }
 
 /**
@@ -119,7 +118,7 @@ const parseUpdateValues = values => {
 
   let clause = ``
 
-  if (values && values.constructor.name === 'Object') {
+  if (values?.constructor.name === 'Object') {
     const keys = Object.keys(values)
     if (keys.length) {
       clause += ` SET `
@@ -145,7 +144,7 @@ const parseTable = table => {
     throw `[parseTable] Not passed table name to be used in query statement!`
   }
 
-  return table && table.constructor.name === 'String' ? ` FROM ${table}` : ``
+  return table?.constructor.name === 'String' ? ` FROM ${table}` : ``
 }
 
 /**
