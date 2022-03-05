@@ -5,9 +5,9 @@
  * @returns {String} String converted to field to be used in query statement.
  */
 const parseField = (field = null) => {
-  if (field?.constructor.name === 'Array' && field.length > 0) {
+  if (field?.constructor.name === 'Array' && field.length) {
     return ` ${field.join(', ')}`
-  } else if (field?.constructor.name === 'String' && field.length > 0) {
+  } else if (field?.constructor.name === 'String' && field.length) {
     return ` ${field}`
   } else if (field?.constructor.name === 'Object') {
     const keys = Object.keys(field)
@@ -24,19 +24,26 @@ const parseField = (field = null) => {
 /**
  * Returns after converting it into group by clause to be used in query statement using passed argument.
  *
- * @param {String} [group=null] Group by clause to be used in query statement.
+ * @param {Array|String|Object} [group=null] Group by clause to be used in query statement.
  * @param {String} [having=null] Having condition to be used in group by clause of query statement.
  * @returns {String} String converted to group by clause to be used in query statement.
  */
 const parseGroup = (group = null, having = null) => {
   let clause = ``
 
-  if (group?.constructor.name === 'String' && group.length > 0) {
+  if (group?.constructor.name === 'Array' && group.length) {
+    clause = ` GROUP BY ${group.join(', ')}`
+  } else if (group?.constructor.name === 'String' && group.length) {
     clause = ` GROUP BY ${group}`
-
-    if (having?.constructor.name === 'String' && group.length > 0) {
-      clause += ` HAVING ${having}`
+  } else if (group?.constructor.name === 'Object') {
+    const keys = Object.keys(group)
+    if (keys.length) {
+      clause = ` GROUP BY ${keys.join(', ')}`
     }
+  }
+
+  if (clause && having?.constructor.name === 'String' && having.length) {
+    clause += ` HAVING ${having}`
   }
 
   return clause
