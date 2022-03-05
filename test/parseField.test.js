@@ -1,49 +1,68 @@
-const { parseField } = require('../src/index')
+const { parseField } = require('../src')
 
 
-test('[parseField] If undefined is passed, it returns \' *\'', () => {
+// undefined
+test('parseField() returns \' *\'', () => {
   expect(parseField()).toBe(' *')
 })
 
-test('[parseField] If null is passed, it returns \' *\'', () => {
+// null
+test('parseField(null) returns \' *\'', () => {
   expect(parseField(null)).toBe(' *')
 })
 
-test('[parseField] If \'\'(empty string) is passed, it returns \' *\'', () => {
-  expect(parseField('')).toBe(' *')
-})
 
-test('[parseField] If \'fldName\' is passed, it returns \' fldName\'', () => {
-  const field = 'fldName'
-  expect(parseField(field)).toBe(' fldName')
-})
-
-test('[parseField] If \'fld1, fld2\' is passed, it returns \' fld1, fld2\'', () => {
-  const field = 'fld1, fld2'
-  expect(parseField(field)).toBe(' fld1, fld2')
-})
-
-test('[parseField] If \'*\' is passed, it returns \' *\'', () => {
-  const field = '*'
-  expect(parseField(field)).toBe(' *')
-})
-
-test('[parseField] If [](empty array) is passed, it returns \' *\'', () => {
+// Array
+test('parseField([]) returns \' *\'', () => {
   const field = []
   expect(parseField(field)).toBe(' *')
 })
 
-test('[parseField] If [\'fld1\', \'fld2\'] is passed, it returns \' fld1, fld2\'', () => {
-  const field = ['fld1', 'fld2']
-  expect(parseField(field)).toBe(' fld1, fld2')
+test('parseField([\'colName\']) returns \' colName\'', () => {
+  const field = ['colName']
+  expect(parseField(field)).toBe(' colName')
 })
 
-test('[parseField] If {}(empty object) is passed, it returns \' *\'', () => {
+test('parseField([\'col1\', \'col2\']) returns \' col1, col2\'', () => {
+  const field = ['col1', 'col2']
+  expect(parseField(field)).toBe(' col1, col2')
+})
+
+
+// String
+test('parseField(\'\') returns \' *\'', () => {
+  const field = ''
+  expect(parseField(field)).toBe(' *')
+})
+
+test('parseField(\'colName\') returns \' colName\'', () => {
+  const field = 'colName'
+  expect(parseField(field)).toBe(' colName')
+})
+
+test('parseField(\'col1, col2\') returns \' col1, col2\'', () => {
+  const field = 'col1, col2'
+  expect(parseField(field)).toBe(' col1, col2')
+})
+
+test('parseField(\'*\') returns \' *\'', () => {
+  const field = '*'
+  expect(parseField(field)).toBe(' *')
+})
+
+
+// Object
+test('parseField({}) returns \' *\'', () => {
   const field = {}
   expect(parseField(field)).toBe(' *')
 })
 
-test('[parseField] If {fld1: \'val1\', fld2: \'val2\'} is passed, it returns \' fld1, fld2\'', () => {
-  const field = { fld1: 'val1', fld2: 'val2' }
-  expect(parseField(field)).toBe(' fld1, fld2')
+test('parseField({colName: \'value\'}) returns \' colName\'', () => {
+  const field = { colName: 'value' }
+  expect(parseField(field)).toBe(' colName')
+})
+
+test('parseField({col1: \'val1\', col2: \'val2\'}) returns \' col1, col2\'', () => {
+  const field = { col1: 'val1', col2: 'val2' }
+  expect(parseField(field)).toBe(' col1, col2')
 })
