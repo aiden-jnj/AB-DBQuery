@@ -25,7 +25,10 @@
     "node": ">= 12.14.1"
   },
   "main": "./src/index.js",
-  "dependencies": {},
-  "devDependencies": {},
-  "scripts": {}
+  "devDependencies": {
+    "jest": "^27.5.1"
+  },
+  "scripts": {
+    "test": "jest"
+  }
 }
