@@ -53,13 +53,13 @@ const parseGroup = (group = null, having = null) => {
  * Returns after converting to string that field names and values to be used in `INSERT` query statement.
  *
  * @param {Object} values Values object that consisting of field names and values to add to table.
- * @throws Not passed object consisting of field and value to be used in INSERT query statement!
- * @throws Object consisting of fields and values for use in an INSERT query statement was specified incorrectly!
+ * @throws {Error} Not passed object consisting of field and value to be used in INSERT query statement!
+ * @throws {Error} Object consisting of fields and values for use in an INSERT query statement was specified incorrectly!
  * @returns {String} String converted to be insert values clause to be used in `INSERT` query statement.
  */
 const parseInsertValues = values => {
   if (!values) {
-    throw '[parseInsertValues] Not passed object consisting of field and value to be used in INSERT query statement!'
+    throw new Error('[parseInsertValues] Not passed object consisting of field and value to be used in INSERT query statement!')
   }
 
   let clause = ``
@@ -71,7 +71,7 @@ const parseInsertValues = values => {
   }
 
   if (!clause) {
-    throw '[parseInsertValues] Object consisting of fields and values for use in an INSERT query statement was specified incorrectly!'
+    throw new Error('[parseInsertValues] Object consisting of fields and values for use in an INSERT query statement was specified incorrectly!')
   }
 
   return clause
@@ -127,13 +127,13 @@ const parseOrder = (order = null) => {
  * Returns after converting to string it to be update field names and values to be used in `UPDATE` query statement.
  *
  * @param {Object} values Values object that consisting of field names and values to be used in `UPDATE` query statement.
- * @throws Not passed object consisting of field and value to be used in UPDATE query statement!
- * @throws Object consisting of fields and values for use in an UPDATE query statement was specified incorrectly!
+ * @throws {Error} Not passed object consisting of field and value to be used in UPDATE query statement!
+ * @throws {Error} Object consisting of fields and values for use in an UPDATE query statement was specified incorrectly!
  * @returns {String} String converted to be update field names and values to be used in `UPDATE` query statement.
  */
 const parseUpdateValues = values => {
   if (!values) {
-    throw '[parseUpdateValues] Not passed object consisting of field and value to be used in UPDATE query statement!'
+    throw new Error('[parseUpdateValues] Not passed object consisting of field and value to be used in UPDATE query statement!')
   }
 
   let clause = ``
@@ -150,7 +150,7 @@ const parseUpdateValues = values => {
   }
 
   if (!clause) {
-    throw '[parseUpdateValues] Object consisting of fields and values for use in an UPDATE query statement was specified incorrectly!'
+    throw new Error('[parseUpdateValues] Object consisting of fields and values for use in an UPDATE query statement was specified incorrectly!')
   }
 
   return clause
@@ -160,12 +160,12 @@ const parseUpdateValues = values => {
  * Returns after converting it to be used in query statement using passed table name.
  *
  * @param {String} table Table name to use in query statement.
- * @throws Not passed table name to be used in query statement!
+ * @throws {Error} Not passed table name to be used in query statement!
  * @returns {String} String converted to table to be used in query statement.
  */
 const parseTable = table => {
   if (!table || table.constructor.name !== 'String') {
-    throw '[parseTable] Not passed table name to be used in query statement!'
+    throw new Error('[parseTable] Not passed table name to be used in query statement!')
   }
 
   return ` FROM ${table}`
@@ -213,13 +213,13 @@ const parseWhere = (where = null) => {
  *
  * @param {String} table Table name to use in query statement.
  * @param {Object} values Values object that consisting of field names and values to add to table.
- * @throws Not passed table name to be used in query statement!
- * @throws Not passed object consisting of field and value to be used in INSERT query statement!
+ * @throws {Error} Not passed table name to be used in query statement!
+ * @throws {Error} Not passed object consisting of field and value to be used in INSERT query statement!
  * @returns {String} `INSERT` query statement created using passed arguments.
  */
 const queryInsert = (table, values) => {
   if (!table || table.constructor.name !== 'String') {
-    throw '[queryInsert] Not passed table name to be used in query statement!'
+    throw new Error('[queryInsert] Not passed table name to be used in query statement!')
   }
 
   return `INSERT INTO
@@ -236,7 +236,7 @@ const queryInsert = (table, values) => {
  * @param {String|Object} [where=null] Where condition to be used in query statement.
  * @param {String} [order=null] Order by clause to be used in query statement.
  * @param {Number} [limit=0] Number of rows to return to be used in query statement. If `0` no limit in used.
- * @throws Not passed table name to be used in query statement!
+ * @throws {Error} Not passed table name to be used in query statement!
  * @returns {String} `SELECT` query statement created using passed arguments.
  */
 const querySelect = (table, field = null, where = null, order = null, limit = 0) => {
@@ -259,7 +259,7 @@ const querySelect = (table, field = null, where = null, order = null, limit = 0)
  * @param {String} [having=null] Having condition to be used in group by clause of query statement.
  * @param {String} [order=null] Order by clause to be used in query statement.
  * @param {Number} [limit=0] Number of rows to return to be used in query statement. If `0` no limit in used.
- * @throws Not passed table name to be used in query statement!
+ * @throws {Error} Not passed table name to be used in query statement!
  * @returns {String} `SELECT` query statement created using passed arguments.
  */
 const querySelectGroup = (
@@ -292,7 +292,7 @@ const querySelectGroup = (
  * @param {String|Object} [where=null] Where condition to be used in query statement.
  * @param {String} [order=null] Order by clause to be used in query statement.
  * @param {Number} [limit=0] Number of rows to return to be used in query statement. If `0` no limit in used.
- * @throws Not passed table name to be used in query statement!
+ * @throws {Error} Not passed table name to be used in query statement!
  * @returns {String} `SELECT` query statement for table join created using passed arguments.
  */
 const querySelectJoin = (
@@ -328,7 +328,7 @@ const querySelectJoin = (
  * @param {String} [having=null] Having condition to be used in group by clause of query statement.
  * @param {String} [order=null] Order by clause to be used in query statement.
  * @param {Number} [limit=0] Number of rows to return to be used in query statement. If `0` no limit in used.
- * @throws Not passed table name to be used in query statement!
+ * @throws {Error} Not passed table name to be used in query statement!
  * @returns {String} `SELECT` query statement for table join created using passed arguments.
  */
 const querySelectJoinGroup = (
@@ -360,17 +360,17 @@ const querySelectJoinGroup = (
  * @param {String} table Table name to use in query statement.
  * @param {Object} values Values object that consisting of field names and values to be used in `UPDATE` query statement.
  * @param {String|Object} where Where condition to be used in query statement.
- * @throws Not passed table name to be used in query statement!
- * @throws Not passed object consisting of field and value to be used in UPDATE query statement!
- * @throws Not passed update condition clause to be used in UPDATE query statement!
+ * @throws {Error} Not passed table name to be used in query statement!
+ * @throws {Error} Not passed object consisting of field and value to be used in UPDATE query statement!
+ * @throws {Error} Not passed update condition clause to be used in UPDATE query statement!
  * @returns {String} `UPDATE` query statement created using passed arguments.
  */
 const queryUpdate = (table, values, where) => {
   if (!table || table.constructor.name !== 'String') {
-    throw '[queryUpdate] Not passed table name to be used in query statement!'
+    throw new Error('[queryUpdate] Not passed table name to be used in query statement!')
   }
   if (!where) {
-    throw '[queryUpdate] Not passed update condition clause to be used in UPDATE query statement!'
+    throw new Error('[queryUpdate] Not passed update condition clause to be used in UPDATE query statement!')
   }
 
   return `UPDATE
