@@ -66,8 +66,10 @@ const parseInsertValues = values => {
 
   if (values?.constructor.name === 'Object') {
     const keys = Object.keys(values)
-    const vals = Object.values(values)
-    clause += ` (${keys.join(', ')}) VALUES (${vals.join(', ')})`
+    if (keys.length) {
+      const vals = Object.values(values)
+      clause += ` (${keys.join(', ')}) VALUES (${vals.join(', ')})`
+    }
   }
 
   if (!clause) {
