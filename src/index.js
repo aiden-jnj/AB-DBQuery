@@ -1,7 +1,7 @@
 /**
  * Returns after converting it into fields to be used in query statement using passed argument.
  *
- * @param {String|Array} [field=null] Fields to be used in query statement.
+ * @param {Array|String|Object} [field=null] Fields to be used in query statement.
  * @returns {String} String converted to field to be used in query statement.
  */
 const parseField = (field = null) => {
@@ -9,6 +9,13 @@ const parseField = (field = null) => {
     return ` ${field.join(', ')}`
   } else if (field?.constructor.name === 'String' && field.length > 0) {
     return ` ${field}`
+  } else if (field?.constructor.name === 'Object') {
+    const keys = Object.keys(field)
+    if (keys.length) {
+      return ` ${keys.join(', ')}`
+    } else {
+      return ` *`
+    }
   } else {
     return ` *`
   }
