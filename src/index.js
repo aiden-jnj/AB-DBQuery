@@ -126,11 +126,19 @@ const parseLimit = (limit = 0) => {
 /**
  * Returns after converting it into order by clause to be used in query statement using passed argument.
  *
- * @param {String} [order=null] Order by clause to be used in query statement.
+ * @param {String|Array} [order=null] Order by clause to be used in query statement.
  * @returns {String} String converted to order by clause to be used in query statement.
  */
 const parseOrder = (order = null) => {
-  return order?.constructor.name === 'String' && order.length ? ` ORDER BY ${order}` : ``
+  if (order) {
+    if (order.constructor.name === 'String') {
+      return ` ORDER BY ${order}`
+    } else if (order.constructor.name === 'Array' && order.length) {
+      return ` ORDER BY ${order.join(', ')}`
+    }
+  }
+
+  return ``
 }
 
 /**
