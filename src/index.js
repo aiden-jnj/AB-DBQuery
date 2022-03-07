@@ -142,6 +142,28 @@ const parseOrder = (order = null) => {
 }
 
 /**
+ * Returns after converting it to be used in query statement using passed table name.
+ *
+ * @param {String|Array} table Table name to use in query statement.
+ * @throws {Error} Not passed table name to be used in query statement!
+ * @throws {Error} Table to use in the query statement is not specified!
+ * @returns {String} String converted to table to be used in query statement.
+ */
+const parseTable = table => {
+  if (!table) {
+    throw new Error('[parseTable] Not passed table name to be used in query statement!')
+  }
+
+  if (table && table.constructor.name === 'String') {
+    return ` FROM ${table}`
+  } else if (table?.constructor.name === 'Array' && table.length) {
+    return ` FROM ${table.join(', ')}`
+  }
+
+  throw new Error('[parseTable] Table to use in the query statement is not specified!')
+}
+
+/**
  * Returns after converting to string it to be update field names and values to be used in `UPDATE` query statement.
  *
  * @param {Object} values Values object that consisting of field names and values to be used in `UPDATE` query statement.
@@ -172,21 +194,6 @@ const parseUpdateValues = values => {
   }
 
   return clause
-}
-
-/**
- * Returns after converting it to be used in query statement using passed table name.
- *
- * @param {String} table Table name to use in query statement.
- * @throws {Error} Not passed table name to be used in query statement!
- * @returns {String} String converted to table to be used in query statement.
- */
-const parseTable = table => {
-  if (!table || table.constructor.name !== 'String') {
-    throw new Error('[parseTable] Not passed table name to be used in query statement!')
-  }
-
-  return ` FROM ${table}`
 }
 
 /**
@@ -405,6 +412,7 @@ const ABDBQuery = {
   parseJoin,
   parseLimit,
   parseOrder,
+  parseTable,
   parseUpdateValues,
   parseWhere,
   queryInsert,
