@@ -2,7 +2,7 @@ const { parseUpdateValues } = require('../src')
 
 
 // undefined
-test('parseUpdateValues() returns \'\'', () => {
+test('parseUpdateValues() occurs error', () => {
   const call = () => parseUpdateValues()
   const error = new Error('[parseUpdateValues] Not passed object consisting of field and value to be used in UPDATE query statement!')
   expect(call).toThrowError(error)
