@@ -83,22 +83,30 @@ const parseInsertValues = values => {
  * Returns after converting it into table join clause to be used in query statement using passed argument.
  *
  * @param {String} [type=null] Join type to be used in table join query statement.
- * @param {String} [table=null] Table name of joined target table to use in join query statement.
+ * @param {String|Array} [table=null] Table name of joined target table to use in join query statement.
  * @param {String} [on=null] Constraint for to use table join.
  * @returns String converted to table join clause to be used in query statement.
  */
 const parseJoin = (type = null, table = null, on = null) => {
   let clause = ``
 
-  type = type || 'INNER'
-  if (!type || type.constructor.name !== 'String') return clause
-  if (!table || table.constructor.name !== 'String') return clause
-  if (!on || on.constructor.name !== 'String') return clause
+  type = String(type || '').toUpperCase()
+  if (type.constructor.name !== 'String') return clause
 
-  type = String(type).toUpperCase()
+  const join = type.length ? ` ${type} JOIN` : ` JOIN`
 
-  clause += ` ${type} JOIN ${table}`
-  if (type !== 'CROSS' && on.length) {
+  if (table && table.constructor.name === 'String') {
+    clause = `${join} ${table}`
+  } else if (table?.constructor.name === 'Array' && table.length) {
+    clause = `${join} ${table.join(', ')}`
+  } else {
+    return clause
+  }
+
+  if (!clause.length || on?.constructor.name !== 'String' || !on.length) return clause
+  if (type === 'CROSS') return clause
+
+  if (on?.constructor.name === 'String' && on.length) {
     clause += ` ON ${on}`
   }
 
@@ -386,6 +394,7 @@ const ABDBQuery = {
   parseField,
   parseGroup,
   parseInsertValues,
+  parseJoin,
   parseLimit,
   parseOrder,
   parseUpdateValues,
