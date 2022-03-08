@@ -199,7 +199,7 @@ const parseUpdateValues = values => {
 /**
  * Returns after converting it into where clause to be used in query statement using passed argument.
  *
- * @param {String|Object} [where=null] Where condition to be used in query statement.
+ * @param {String|Array|Object} [where=null] Where condition to be used in query statement.
  * @returns {String} String converted to where clause to be used in query statement.
  */
 const parseWhere = (where = null) => {
@@ -210,17 +210,39 @@ const parseWhere = (where = null) => {
 
     if (where.constructor.name === 'String') {
       clause += ` ${where}`
+    } else if (where.constructor.name === 'Array') {
+      where.forEach((condition, idx) => {
+        if (condition.toUpperCase() === 'OR') {
+          clause = clause.replace(/AND$/gi, `OR`)
+          return
+        }
+
+        clause += ` (${condition})`
+        clause += idx < where.length - 1 ? ` AND` : ``
+      })
     } else if (where.constructor.name === 'Object') {
       const keys = Object.keys(where)
+
       keys.forEach((key, idx) => {
+        if (key.toUpperCase() === 'OR') {
+          clause = clause.replace(/AND$/gi, `OR`)
+          return
+        }
+
         const val = where[key] || ''
 
-        if (val.search(/<|>|<=|>=|IS|LIKE|NOT IN/gi) > -1) {
+        if (val.search(/!=|<|>|<>|<=|>=|IS/gi) > -1) {
           clause += ` (${key} ${val})`
-        } else if (val.search(/BETWEEN/gi) > -1) {
+        } else if (val.search(/^AGAINST/gi) > -1) {
+          clause += ` (MATCH(${key}) ${val})`
+        } else if (val.search(/^BETWEEN|^NOT BETWEEN/gi) > -1) {
           clause += ` (${key} ${val})`
-        } else if (val.search(/MATCH/gi) > -1) {
-          clause += ` (${val})`
+        } else if (val.search(/^IN|^NOT IN/gi) > -1) {
+          clause += ` (${key} ${val})`
+        } else if (val.search(/^LIKE|^NOT LIKE/gi) > -1) {
+          clause += ` (${key} ${val})`
+        } else if (val.search(/^MATCH/gi) > -1) {
+          clause += ` (MATCH(${key}) ${val.replace(/MATCH /gi, '')})`
         } else {
           clause += ` (${key} = ${val})`
         }
@@ -229,6 +251,8 @@ const parseWhere = (where = null) => {
       })
     }
   }
+
+  if (clause === ` WHERE`) return ``
 
   return clause
 }
