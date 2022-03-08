@@ -12,13 +12,13 @@ test('parseLimit(null) returns \'\'', () => {
 })
 
 // ''
-test('parseLimit(\'\') returns \'\'', () => {
-  expect(parseLimit('')).toBe('')
+test('parseLimit(``) returns \'\'', () => {
+  expect(parseLimit(``)).toBe('')
 })
 
 // 'Five'
-test('parseLimit(\'Five\') returns \'\'', () => {
-  expect(parseLimit('Five')).toBe('')
+test('parseLimit(`Five`) returns \'\'', () => {
+  expect(parseLimit(`Five`)).toBe('')
 })
 
 // 0
@@ -37,6 +37,6 @@ test('parseLimit() returns \' LIMIT 5\'', () => {
 })
 
 // '5'
-test('parseLimit(\'5\') returns \' LIMIT 5\'', () => {
-  expect(parseLimit('5')).toBe(' LIMIT 5')
+test('parseLimit(`5`) returns \' LIMIT 5\'', () => {
+  expect(parseLimit(`5`)).toBe(' LIMIT 5')
 })

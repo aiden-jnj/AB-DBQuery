@@ -16,15 +16,15 @@ test('(parseInsertValues(null) occurs error', () => {
 })
 
 // String
-test('(parseInsertValues(\'\') occurs error', () => {
-  const values = ''
+test('(parseInsertValues(``) occurs error', () => {
+  const values = ``
   const call = () => parseInsertValues(values)
   const error = new Error('[parseInsertValues] Not passed object consisting of field and value to be used in INSERT query statement!')
   expect(call).toThrowError(error)
 })
 
-test('(parseInsertValues(\'colName = 1\') occurs error', () => {
-  const values = 'colName = 1'
+test('(parseInsertValues(`colName = 1`) occurs error', () => {
+  const values = `colName = 1`
   const call = () => parseInsertValues(values)
   const error = new Error('[parseInsertValues] Object consisting of fields and values for use in an INSERT query statement was specified incorrectly!')
   expect(call).toThrowError(error)
@@ -38,8 +38,8 @@ test('(parseInsertValues([]) occurs error', () => {
   expect(call).toThrowError(error)
 })
 
-test('(parseInsertValues([\'col1 = val1\', \'col2 = val2\']) occurs error', () => {
-  const values = ['col1 = val1', 'col2 = val2']
+test('(parseInsertValues([`col1 = val1`, `col2 = val2`]) occurs error', () => {
+  const values = [`col1 = val1`, `col2 = val2`]
   const call = () => parseInsertValues(values)
   const error = new Error('[parseInsertValues] Object consisting of fields and values for use in an INSERT query statement was specified incorrectly!')
   expect(call).toThrowError(error)

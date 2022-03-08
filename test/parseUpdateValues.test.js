@@ -16,15 +16,15 @@ test('(parseUpdateValues(null) occurs error', () => {
 })
 
 // String
-test('(parseUpdateValues(\'\') occurs error', () => {
-  const values = ''
+test('(parseUpdateValues(``) occurs error', () => {
+  const values = ``
   const call = () => parseUpdateValues(values)
   const error = new Error('[parseUpdateValues] Not passed object consisting of field and value to be used in UPDATE query statement!')
   expect(call).toThrowError(error)
 })
 
-test('(parseUpdateValues(\'colName = 1\') occurs error', () => {
-  const values = 'colName = 1'
+test('(parseUpdateValues(`colName = 1`) occurs error', () => {
+  const values = `colName = 1`
   const call = () => parseUpdateValues(values)
   const error = new Error('[parseUpdateValues] Object consisting of fields and values for use in an UPDATE query statement was specified incorrectly!')
   expect(call).toThrowError(error)
@@ -38,8 +38,8 @@ test('(parseUpdateValues([]) occurs error', () => {
   expect(call).toThrowError(error)
 })
 
-test('(parseUpdateValues([\'col1 = val1\', \'col2 = val2\']) occurs error', () => {
-  const values = ['col1 = val1', 'col2 = val2']
+test('(parseUpdateValues([`col1 = val1`, `col2 = val2`]) occurs error', () => {
+  const values = [`col1 = val1`, `col2 = val2`]
   const call = () => parseUpdateValues(values)
   const error = new Error('[parseUpdateValues] Object consisting of fields and values for use in an UPDATE query statement was specified incorrectly!')
   expect(call).toThrowError(error)
