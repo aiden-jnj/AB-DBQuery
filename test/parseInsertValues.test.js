@@ -38,11 +38,14 @@ test('(parseInsertValues([]) occurs error', () => {
   expect(call).toThrowError(error)
 })
 
-test('(parseInsertValues([`col1 = val1`, `col2 = val2`]) occurs error', () => {
-  const values = [`col1 = val1`, `col2 = val2`]
-  const call = () => parseInsertValues(values)
-  const error = new Error('[parseInsertValues] Object consisting of fields and values for use in an INSERT query statement was specified incorrectly!')
-  expect(call).toThrowError(error)
+test('(parseInsertValues([`"value"`]) occurs error', () => {
+  const values = [`"value"`]
+  expect(parseInsertValues(values)).toBe(' VALUES ("value")')
+})
+
+test('(parseInsertValues([`"val1"`, `"val2"`]) occurs error', () => {
+  const values = [`"val1"`, `"val2"`]
+  expect(parseInsertValues(values)).toBe(' VALUES ("val1", "val2")')
 })
 
 

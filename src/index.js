@@ -52,7 +52,7 @@ const parseGroup = (group = null, having = null) => {
 /**
  * Returns after converting to string that field names and values to be used in `INSERT` query statement.
  *
- * @param {Object} values Values object that consisting of field names and values to add to table.
+ * @param {Array|Object} values Values object that consisting of field names and values to add to table.
  * @throws {Error} Not passed object consisting of field and value to be used in INSERT query statement!
  * @throws {Error} Object consisting of fields and values for use in an INSERT query statement was specified incorrectly!
  * @returns {String} String converted to be insert values clause to be used in `INSERT` query statement.
@@ -64,7 +64,9 @@ const parseInsertValues = values => {
 
   let clause = ``
 
-  if (values?.constructor.name === 'Object') {
+  if (values.constructor.name === 'Array' && values.length > 0) {
+    clause = ` VALUES (${values.join(', ')})`
+  } else if (values.constructor.name === 'Object') {
     const keys = Object.keys(values)
     if (keys.length) {
       const vals = Object.values(values)
@@ -261,9 +263,10 @@ const parseWhere = (where = null) => {
  * Returns after created `INSERT` query statement using passed arguments.
  *
  * @param {String} table Table name to use in query statement.
- * @param {Object} values Values object that consisting of field names and values to add to table.
+ * @param {Arrya|Object} values Values object that consisting of field names and values to add to table.
  * @throws {Error} Not passed table name to be used in query statement!
  * @throws {Error} Not passed object consisting of field and value to be used in INSERT query statement!
+ * @throws {Error} Object consisting of fields and values for use in an INSERT query statement was specified incorrectly!
  * @returns {String} `INSERT` query statement created using passed arguments.
  */
 const queryInsert = (table, values) => {
