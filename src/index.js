@@ -284,8 +284,8 @@ const queryInsert = (table, values) => {
  * Returns after created `SELECT` query statement using passed arguments.
  *
  * @param {String} table Table name to use in query statement.
- * @param {String|Array} [field=null] Fields to be used in query statement.
- * @param {String|Object} [where=null] Where condition to be used in query statement.
+ * @param {String|Array|Object} [field=null] Fields to be used in query statement.
+ * @param {String|Array|Object} [where=null] Where condition to be used in query statement.
  * @param {String} [order=null] Order by clause to be used in query statement.
  * @param {Number} [limit=0] Number of rows to return to be used in query statement. If `0` no limit in used.
  * @throws {Error} Not passed table name to be used in query statement!
@@ -298,15 +298,15 @@ const querySelect = (table, field = null, where = null, order = null, limit = 0)
     ${parseWhere(where)}
     ${parseOrder(order)}
     ${parseLimit(limit)}`
-    .replace(/\s{2,}/gi, ` `)
+    .replace(/\s{2,}/gi, ` `).replace(/\s{1,}$/gi, ``)
 }
 
 /**
  * Returns after created `SELECT` query statement using passed arguments.
  *
- * @param {String} table Table name to use in query statement.
- * @param {String|Array} [field=null] Fields to be used in query statement.
- * @param {String|Object} [where=null] Where condition to be used in query statement.
+ * @param {String|Array} table Table name to use in query statement.
+ * @param {String|Array|Object} [field=null] Fields to be used in query statement.
+ * @param {String|Array|Object} [where=null] Where condition to be used in query statement.
  * @param {String} [group=null] Group by clause to be used in query statement.
  * @param {String} [having=null] Having condition to be used in group by clause of query statement.
  * @param {String} [order=null] Order by clause to be used in query statement.
@@ -340,8 +340,8 @@ const querySelectGroup = (
  * @param {String} [type=null] Join type to be used in table join query statement.
  * @param {String} [join=null] Table name of joined target table to use in join query statement.
  * @param {String} [on=null] Constraint for to use table join.
- * @param {String|Array} [field=null] Fields to be used in query statement.
- * @param {String|Object} [where=null] Where condition to be used in query statement.
+ * @param {String|Array|Object} [field=null] Fields to be used in query statement.
+ * @param {String|Array|Object} [where=null] Where condition to be used in query statement.
  * @param {String} [order=null] Order by clause to be used in query statement.
  * @param {Number} [limit=0] Number of rows to return to be used in query statement. If `0` no limit in used.
  * @throws {Error} Not passed table name to be used in query statement!
@@ -374,8 +374,8 @@ const querySelectJoin = (
  * @param {String} [type=null] Join type to be used in table join query statement.
  * @param {String} [join=null] Table name of joined target table to use in join query statement.
  * @param {String} [on=null] Constraint for to use table join.
- * @param {String|Array} [field=null] Fields to be used in query statement.
- * @param {String|Object} [where=null] Where condition to be used in query statement.
+ * @param {String|Array|Object} [field=null] Fields to be used in query statement.
+ * @param {String|Array|Object} [where=null] Where condition to be used in query statement.
  * @param {String} [group=null] Group by clause to be used in query statement.
  * @param {String} [having=null] Having condition to be used in group by clause of query statement.
  * @param {String} [order=null] Order by clause to be used in query statement.
@@ -411,7 +411,7 @@ const querySelectJoinGroup = (
  *
  * @param {String} table Table name to use in query statement.
  * @param {Object} values Values object that consisting of field names and values to be used in `UPDATE` query statement.
- * @param {String|Object} where Where condition to be used in query statement.
+ * @param {String|Array|Object} where Where condition to be used in query statement.
  * @throws {Error} Not passed table name to be used in query statement!
  * @throws {Error} Not passed object consisting of field and value to be used in UPDATE query statement!
  * @throws {Error} Not passed update condition clause to be used in UPDATE query statement!
