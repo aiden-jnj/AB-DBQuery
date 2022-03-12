@@ -1,14 +1,14 @@
 const { queryInsert } = require('../src')
 
 
-// undefined, undefined
+// table: undefined, values: undefined
 test('queryInsert() occurs error', () => {
   const call = () => queryInsert()
   const error = new Error('[queryInsert] Not passed table name to be used in query statement!')
   expect(call).toThrowError(error)
 })
 
-// String, undefined
+// table: String, values: undefined
 test('queryInsert(`tblName`) occurs error', () => {
   const table = `tblName`
   const call = () => queryInsert(table)
@@ -17,7 +17,7 @@ test('queryInsert(`tblName`) occurs error', () => {
 })
 
 
-// String, Array
+// table: String, values: Array
 test('queryInsert(`tblName`, []) occurs error', () => {
   const table = `tblName`
   const values = []
@@ -39,7 +39,7 @@ test('queryInsert(`tblName`, [`"val1"`, `"val2"`]) returns \'INSERT INTO tblName
 })
 
 
-// String, Object
+// table: String, values: Object
 test('queryInsert(`tblName`, {}) occurs error', () => {
   const table = `tblName`
   const values = {}

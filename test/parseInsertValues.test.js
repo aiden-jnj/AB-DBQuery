@@ -1,21 +1,21 @@
 const { parseInsertValues } = require('../src')
 
 
-// undefined
+// values: undefined
 test('(parseInsertValues() occurs error', () => {
   const call = () => parseInsertValues()
   const error = new Error('[parseInsertValues] Not passed object consisting of field and value to be used in INSERT query statement!')
   expect(call).toThrowError(error)
 })
 
-// null
+// values: null
 test('(parseInsertValues(null) occurs error', () => {
   const call = () => parseInsertValues(null)
   const error = new Error('[parseInsertValues] Not passed object consisting of field and value to be used in INSERT query statement!')
   expect(call).toThrowError(error)
 })
 
-// String
+// values: String
 test('(parseInsertValues(``) occurs error', () => {
   const values = ``
   const call = () => parseInsertValues(values)
@@ -30,7 +30,7 @@ test('(parseInsertValues(`colName = 1`) occurs error', () => {
   expect(call).toThrowError(error)
 })
 
-// Array
+// values: Array
 test('(parseInsertValues([]) occurs error', () => {
   const values = []
   const call = () => parseInsertValues(values)
@@ -49,7 +49,7 @@ test('(parseInsertValues([`"val1"`, `"val2"`]) occurs error', () => {
 })
 
 
-// Object
+// values: Object
 test('(parseInsertValues({}) occurs error', () => {
   const values = {}
   const call = () => parseInsertValues(values)

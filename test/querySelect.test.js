@@ -2,7 +2,7 @@ const { querySelect } = require('../src')
 
 
 
-// undefined
+// table: undefined
 test('querySelect() occurs error', () => {
   const call = () => querySelect()
   const error = new Error('[parseTable] Not passed table name to be used in query statement!')
@@ -10,20 +10,21 @@ test('querySelect() occurs error', () => {
 })
 
 
-// String
+// table: String
 test('querySelect(`tblName`) returns \'SELECT * FROM tblName\'', () => {
   const table = `tblName`
   expect(querySelect(table)).toBe('SELECT * FROM tblName')
 })
 
-// Array
+
+// table: Array
 test('querySelect([`tbl1`, `tbl2`]) returns \'SELECT * FROM tbl1, tbl2\'', () => {
   const table = [`tbl1`, `tbl2`]
   expect(querySelect(table)).toBe('SELECT * FROM tbl1, tbl2')
 })
 
 
-// String, String
+// table: String, field: String
 test('querySelect(`tblName`, ``) returns \'SELECT * FROM tblName\'', () => {
   const table = `tblName`
   const field = ``
@@ -43,7 +44,7 @@ test('querySelect(`tblName`, `col1, col2`) returns \'SELECT col1, col2 FROM tblN
 })
 
 
-// String, Array
+// table: String, field: Array
 test('querySelect(`tblName`, []) returns \'SELECT * FROM tblName\'', () => {
   const table = `tblName`
   const field = []
@@ -63,7 +64,7 @@ test('querySelect(`tblName`, [`col1`, `col2`]) returns \'SELECT col1, col2 FROM 
 })
 
 
-// String, Object
+// table: String, field: Object
 test('querySelect(`tblName`, {}) returns \'SELECT * FROM tblName\'', () => {
   const table = `tblName`
   const field = {}
@@ -83,7 +84,7 @@ test('querySelect(`tblName`, {col1: `val1`, col2: `val2`}) returns \'SELECT col1
 })
 
 
-// String, Array, String
+// table: String, field: Array, where: String
 test('querySelect(`tblName`, [`col1`, `col2`], ``) returns \'SELECT col1, col2 FROM tblName\'', () => {
   const table = `tblName`
   const field = [`col1`, `col2`]
@@ -99,7 +100,7 @@ test('querySelect(`tblName`, [`col1`, `col2`], `gender = "male"`) returns \'SELE
 })
 
 
-// String, Array, Array
+// table: String, field: Array, where: Array
 test('querySelect(`tblName`, [`col1`, `col2`], []) returns \'SELECT col1, col2 FROM tblName\'', () => {
   const table = `tblName`
   const field = [`col1`, `col2`]
@@ -115,7 +116,7 @@ test('querySelect(`tblName`, [`col1`, `col2`], [`gender = "male"`]) returns \'SE
 })
 
 
-// String, Array, Object
+// table: String, field: Array, where: Object
 test('querySelect(`tblName`, [`col1`, `col2`], {}) returns \'SELECT col1, col2 FROM tblName\'', () => {
   const table = `tblName`
   const field = [`col1`, `col2`]
@@ -131,7 +132,7 @@ test('querySelect(`tblName`, [`col1`, `col2`], { gender: `"male"` }) returns \'S
 })
 
 
-// String, Array, Object, String
+// table: String, field: Array, where: Object, order: String
 test('querySelect(`tblName`, [`col1`, `col2`], { gender: `"male"` }, ``) returns \'SELECT col1, col2 FROM tblName WHERE (gender = "male")\'', () => {
   const table = `tblName`
   const field = [`col1`, `col2`]
@@ -149,7 +150,7 @@ test('querySelect(`tblName`, [`col1`, `col2`], { gender: `"male"` }, `dateReg DE
 })
 
 
-// String, Array, Object, String, Number
+// table: String, field: Array, where: Object, order: String, limit: Number
 test('querySelect(`tblName`, [`col1`, `col2`], { gender: `"male"` }, `dateReg DESC`, 0) returns \'SELECT col1, col2 FROM tblName WHERE (gender = "male") ORDER BY dateReg DESC\'', () => {
   const table = `tblName`
   const field = [`col1`, `col2`]

@@ -1,21 +1,21 @@
 const { parseUpdateValues } = require('../src')
 
 
-// undefined
+// values: undefined
 test('parseUpdateValues() occurs error', () => {
   const call = () => parseUpdateValues()
   const error = new Error('[parseUpdateValues] Not passed object consisting of field and value to be used in UPDATE query statement!')
   expect(call).toThrowError(error)
 })
 
-// null
+// values: null
 test('(parseUpdateValues(null) occurs error', () => {
   const call = () => parseUpdateValues(null)
   const error = new Error('[parseUpdateValues] Not passed object consisting of field and value to be used in UPDATE query statement!')
   expect(call).toThrowError(error)
 })
 
-// String
+// values: String
 test('(parseUpdateValues(``) occurs error', () => {
   const values = ``
   const call = () => parseUpdateValues(values)
@@ -30,7 +30,7 @@ test('(parseUpdateValues(`colName = 1`) occurs error', () => {
   expect(call).toThrowError(error)
 })
 
-// Array
+// values: Array
 test('(parseUpdateValues([]) occurs error', () => {
   const values = []
   const call = () => parseUpdateValues(values)
@@ -46,7 +46,7 @@ test('(parseUpdateValues([`col1 = val1`, `col2 = val2`]) occurs error', () => {
 })
 
 
-// Object
+// values: Object
 test('(parseUpdateValues({}) occurs error', () => {
   const values = {}
   const call = () => parseUpdateValues(values)

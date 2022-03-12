@@ -1,18 +1,18 @@
 const { parseWhere } = require('../src')
 
 
-// undefined
+// where: undefined
 test('parseWhere() returns \'\'', () => {
   expect(parseWhere()).toBe('')
 })
 
-// null
+// where: null
 test('parseWhere(null) returns \'\'', () => {
   expect(parseWhere(null)).toBe('')
 })
 
 
-// String
+// where: String
 test('parseWhere(``) returns \'\'', () => {
   const where = ``
   expect(parseWhere(where)).toBe('')
@@ -64,7 +64,7 @@ test('parseWhere(`MATCH(memo) AGAINST("Important High")`) returns \' WHERE MATCH
 })
 
 
-// Array
+// where: Array
 test('parseWhere([]) returns \'\'', () => {
   const where = []
   expect(parseWhere(where)).toBe('')
@@ -116,7 +116,7 @@ test('parseWhere([`MATCH(memo) AGAINST("Important High")`]) returns \' WHERE (MA
 })
 
 
-// Object
+// where: Object
 test('parseWhere({}) returns \'\'', () => {
   const where = {}
   expect(parseWhere(where)).toBe('')

@@ -1,21 +1,21 @@
 const { parseTable } = require('../src')
 
 
-// undefined
+// table: undefined
 test('parseTable() occurs error', () => {
   const call = () => parseTable()
   const error = new Error('[parseTable] Not passed table name to be used in query statement!')
   expect(call).toThrowError(error)
 })
 
-// null
+// table: null
 test('parseTable(null) occurs error', () => {
   const call = () => parseTable(null)
   const error = new Error('[parseTable] Not passed table name to be used in query statement!')
   expect(call).toThrowError(error)
 })
 
-// Object
+// table: Object
 test('parseTable({}) occurs error', () => {
   const call = () => parseTable({})
   const error = new Error('[parseTable] Table to use in the query statement is not specified!')
@@ -29,7 +29,7 @@ test('parseTable({tblName: `myTable`}) occurs error', () => {
 })
 
 
-// String
+// table: String
 test('parseTable(``) occurs error', () => {
   const table = ``
   const call = () => parseTable(table)
@@ -48,7 +48,7 @@ test('parseTable(`tbl1, tbl2`) returns \' FROM tbl1, tbl2\'', () => {
 })
 
 
-// Array
+// table: Array
 test('parseTable([]) occurs error', () => {
   const table = []
   const call = () => parseTable(table)

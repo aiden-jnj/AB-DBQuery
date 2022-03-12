@@ -1,21 +1,17 @@
 /**
  * Returns after converting it into fields to be used in query statement using passed argument.
  *
- * @param {Array|String|Object} [field=null] Fields to be used in query statement.
+ * @param {String|Array|Object} [field=null] Fields to be used in query statement.
  * @returns {String} String converted to field to be used in query statement.
  */
 const parseField = (field = null) => {
-  if (field?.constructor.name === 'Array' && field.length) {
-    return ` ${field.join(', ')}`
-  } else if (field?.constructor.name === 'String' && field.length) {
+  if (field?.constructor.name === 'String' && field.length) {
     return ` ${field}`
+  } else if (field?.constructor.name === 'Array' && field.length) {
+    return ` ${field.join(', ')}`
   } else if (field?.constructor.name === 'Object') {
     const keys = Object.keys(field)
-    if (keys.length) {
-      return ` ${keys.join(', ')}`
-    } else {
-      return ` *`
-    }
+    return keys.length ? ` ${keys.join(', ')}` : ` *`
   } else {
     return ` *`
   }
@@ -24,17 +20,17 @@ const parseField = (field = null) => {
 /**
  * Returns after converting it into group by clause to be used in query statement using passed argument.
  *
- * @param {Array|String|Object} [group=null] Group by clause to be used in query statement.
+ * @param {String|Array|Object} [group=null] Group by clause to be used in query statement.
  * @param {String} [having=null] Having condition to be used in group by clause of query statement.
  * @returns {String} String converted to group by clause to be used in query statement.
  */
 const parseGroup = (group = null, having = null) => {
   let clause = ``
 
-  if (group?.constructor.name === 'Array' && group.length) {
-    clause = ` GROUP BY ${group.join(', ')}`
-  } else if (group?.constructor.name === 'String' && group.length) {
+  if (group?.constructor.name === 'String' && group.length) {
     clause = ` GROUP BY ${group}`
+  } else if (group?.constructor.name === 'Array' && group.length) {
+    clause = ` GROUP BY ${group.join(', ')}`
   } else if (group?.constructor.name === 'Object') {
     const keys = Object.keys(group)
     if (keys.length) {
@@ -307,7 +303,7 @@ const querySelect = (table, field = null, where = null, order = null, limit = 0)
  * @param {String|Array} table Table name to use in query statement.
  * @param {String|Array|Object} [field=null] Fields to be used in query statement.
  * @param {String|Array|Object} [where=null] Where condition to be used in query statement.
- * @param {String} [group=null] Group by clause to be used in query statement.
+ * @param {String|Array|Object} [group=null] Group by clause to be used in query statement.
  * @param {String} [having=null] Having condition to be used in group by clause of query statement.
  * @param {String} [order=null] Order by clause to be used in query statement.
  * @param {Number} [limit=0] Number of rows to return to be used in query statement. If `0` no limit in used.
@@ -324,13 +320,13 @@ const querySelectGroup = (
   limit = 0
 ) => {
   return `SELECT
-    ${parseTable(table)}
     ${parseField(field)}
+    ${parseTable(table)}
     ${parseWhere(where)}
     ${parseGroup(group, having)}
     ${parseOrder(order)}
     ${parseLimit(limit)}`
-    .replace(/\s{2,}/gi, ` `)
+    .replace(/\s{2,}/gi, ` `).replace(/\s{1,}$/gi, ``)
 }
 
 /**
@@ -364,7 +360,7 @@ const querySelectJoin = (
     ${parseWhere(where)}
     ${parseOrder(order)}
     ${parseLimit(limit)}`
-    .replace(/\s{2,}/gi, ` `)
+    .replace(/\s{2,}/gi, ` `).replace(/\s{1,}$/gi, ``)
 }
 
 /**
@@ -403,7 +399,7 @@ const querySelectJoinGroup = (
     ${parseGroup(group, having)}
     ${parseOrder(order)}
     ${parseLimit(limit)}`
-    .replace(/\s{2,}/gi, ` `)
+    .replace(/\s{2,}/gi, ` `).replace(/\s{1,}$/gi, ``)
 }
 
 /**

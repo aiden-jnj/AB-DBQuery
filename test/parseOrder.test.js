@@ -1,52 +1,52 @@
 const { parseOrder } = require('../src')
 
 
-// undefined
+// order: undefined
 test('parseOrder() returns \'\'', () => {
   expect(parseOrder()).toBe('')
 })
 
-// null
+// order: null
 test('parseOrder(null) returns \'\'', () => {
   expect(parseOrder(null)).toBe('')
 })
 
-// ''
+// order: ''
 test('parseOrder(``) returns \'\'', () => {
   expect(parseOrder(``)).toBe('')
 })
 
-// []
+// order: []
 test('parseOrder([]) returns \'\'', () => {
   expect(parseOrder([])).toBe('')
 })
 
-// 'age'
+// order: 'age'
 test('parseOrder(`age`) returns \' ORDER BY age\'', () => {
   expect(parseOrder(`age`)).toBe(' ORDER BY age')
 })
 
-// 'dateReg DESC'
+// order: 'dateReg DESC'
 test('parseOrder(`dateReg DESC`) returns \' ORDER BY dateReg DESC\'', () => {
   expect(parseOrder(`dateReg DESC`)).toBe(' ORDER BY dateReg DESC')
 })
 
-// 'dateReg DESC, age'
+// order: 'dateReg DESC, age'
 test('parseOrder(`dateReg DESC, age`) returns \' ORDER BY dateReg DESC, age\'', () => {
   expect(parseOrder(`dateReg DESC, age`)).toBe(' ORDER BY dateReg DESC, age')
 })
 
-// ['age']
+// order: ['age']
 test('parseOrder([`age`]) returns \' ORDER BY age\'', () => {
   expect(parseOrder([`age`])).toBe(' ORDER BY age')
 })
 
-// ['dateReg DESC']
+// order: ['dateReg DESC']
 test('parseOrder([`dateReg DESC`]) returns \' ORDER BY dateReg DESC\'', () => {
   expect(parseOrder([`dateReg DESC`])).toBe(' ORDER BY dateReg DESC')
 })
 
-// ['dateReg DESC', 'age']
+// order: ['dateReg DESC', 'age']
 test('parseOrder([`dateReg DESC`, `age`]) returns \' ORDER BY dateReg DESC, age\'', () => {
   expect(parseOrder([`dateReg DESC`, `age`])).toBe(' ORDER BY dateReg DESC, age')
 })

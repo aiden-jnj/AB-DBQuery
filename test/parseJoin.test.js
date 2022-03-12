@@ -1,17 +1,17 @@
 const { parseJoin } = require('../src')
 
 
-// undefined, undefined, undefined
+// type: undefined, table: undefined, on: undefined
 test('parseJoin() returns \'\'', () => {
   expect(parseJoin()).toBe('')
 })
 
-// null, undefined, nudefined
+// type: null, table: undefined, on: nudefined
 test('parseJoin(null) returns \'\'', () => {
   expect(parseJoin(null)).toBe('')
 })
 
-// String, undefined, undefined
+// type: String, table: undefined, on: undefined
 test('parseJoin(``) returns \'\'', () => {
   const type = ``
   expect(parseJoin(type)).toBe('')
@@ -23,7 +23,7 @@ test('parseJoin(`INNER`) returns \'\'', () => {
 })
 
 
-// null, String, undefined
+// type: null, table: String, on: undefined
 test('parseJoin(null, ``) returns \'\'', () => {
   const type = null
   const table = ``
@@ -43,7 +43,7 @@ test('parseJoin(null, `tbl1, tbl2`) returns \' JOIN tbl1, tbl2\'', () => {
 })
 
 
-// null, Array, undefined
+// type: null, table: Array, on: undefined
 test('parseJoin(null, []) returns \'\'', () => {
   const type = null
   const table = []
@@ -63,7 +63,7 @@ test('parseJoin(null, [`tbl1`, `tbl2`]) returns \' JOIN tbl1, tbl2\'', () => {
 })
 
 
-// String, String, undefined
+// type: String, table: String, on: undefined
 test('parseJoin(``, ``) returns \'\'', () => {
   const type = ``
   const table = ``
@@ -95,7 +95,7 @@ test('parseJoin(`INNER`, `tblName`) returns \' INNER JOIN tblName\'', () => {
 })
 
 
-// String, Array, undefined
+// type: String, table: Array, on: undefined
 test('parseJoin(``, []) returns \'\'', () => {
   const type = ``
   const table = []
@@ -127,7 +127,7 @@ test('parseJoin(`INNER`, [`tblName`]) returns \' INNER JOIN tblName\'', () => {
 })
 
 
-// String, String, null
+// type: String, table: String, on: null
 test('parseJoin(``, ``, null) returns \'\'', () => {
   const type = ``
   const table = ``
@@ -157,7 +157,7 @@ test('parseJoin(`INNER`, `tblName`, null) returns \' INNER JOIN tblName\'', () =
 })
 
 
-// String, Array, null
+// type: String, table: Array, on: null
 test('parseJoin(``, [], null) returns \'\'', () => {
   const type = ``
   const table = []
@@ -187,7 +187,7 @@ test('parseJoin(`INNER`, [`tblName`], null) returns \' INNER JOIN tblName\'', ()
 })
 
 
-// String, String, String
+// type: String, table: String, on: String
 test('parseJoin(``, ``, ``) returns \'\'', () => {
   const type = ``
   const table = ``
@@ -231,7 +231,7 @@ test('parseJoin(`INNER`, `tblName`, `tableName.id = tblName.id`) returns \' INNE
 })
 
 
-// String, Array, String
+// type: String, table: Array, on: String
 test('parseJoin(``, [], ``) returns \'\'', () => {
   const type = ``
   const table = []
