@@ -54,12 +54,12 @@ test('(parseUpdateValues({}) occurs error', () => {
   expect(call).toThrowError(error)
 })
 
-test('(parseUpdateValues({colName: `"value"`}) returns \' SET colName = "value"\'', () => {
+test('(parseUpdateValues({ colName: `"value"` }) returns \' SET colName = "value"\'', () => {
   const values = { colName: `"value"` }
   expect(parseUpdateValues(values)).toBe(' SET colName = "value"')
 })
 
-test('(parseUpdateValues({col1: 5, col2: `"val2"`}) returns \' SET col1 = 5, col2 = "val2"\'', () => {
+test('(parseUpdateValues({ col1: 5, col2: `"val2"` }) returns \' SET col1 = 5, col2 = "val2"\'', () => {
   const values = { col1: 5, col2: `"val2"` }
   expect(parseUpdateValues(values)).toBe(' SET col1 = 5, col2 = "val2"')
 })

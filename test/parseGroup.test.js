@@ -73,12 +73,12 @@ test('parseGroup({}) returns \'\'', () => {
   expect(parseGroup(group)).toBe('')
 })
 
-test('parseGroup({colName: `value`}) returns \' GROUP BY colName\'', () => {
+test('parseGroup({ colName: `value` }) returns \' GROUP BY colName\'', () => {
   const group = { colName: `value` }
   expect(parseGroup(group)).toBe(' GROUP BY colName')
 })
 
-test('parseGroup({col1: `val1`, col2: `val2`}) returns \' GROUP BY col1, col2\'', () => {
+test('parseGroup({ col1: `val1`, col2: `val2` }) returns \' GROUP BY col1, col2\'', () => {
   const group = { col1: `val1`, col2: `val2` }
   expect(parseGroup(group)).toBe(' GROUP BY col1, col2')
 })
@@ -143,19 +143,19 @@ test('parseGroup({}, \'SUM(amount) > 10000`) returns \'\'', () => {
   expect(parseGroup(group, having)).toBe('')
 })
 
-test('parseGroup({colName: `value`}, \'`) returns \' GROUP BY colName\'', () => {
+test('parseGroup({ colName: `value` }, \'`) returns \' GROUP BY colName\'', () => {
   const group = { colName: `value` }
   const having = ``
   expect(parseGroup(group, having)).toBe(' GROUP BY colName')
 })
 
-test('parseGroup({colName: `value`}, \'SUM(amount) > 10000`) returns \' GROUP BY colName HAVING SUM(amount) > 10000\'', () => {
+test('parseGroup({ colName: `value` }, \'SUM(amount) > 10000`) returns \' GROUP BY colName HAVING SUM(amount) > 10000\'', () => {
   const group = { colName: `value` }
   const having = `SUM(amount) > 10000`
   expect(parseGroup(group, having)).toBe(' GROUP BY colName HAVING SUM(amount) > 10000')
 })
 
-test('parseGroup({col1: `val1`, col2: `val2`}, \'SUM(amount) > 10000`) returns \' GROUP BY col1, col2 HAVING SUM(amount) > 10000\'', () => {
+test('parseGroup({ col1: `val1`, col2: `val2` }, \'SUM(amount) > 10000`) returns \' GROUP BY col1, col2 HAVING SUM(amount) > 10000\'', () => {
   const group = { col1: `val1`, col2: `val2` }
   const having = `SUM(amount) > 10000`
   expect(parseGroup(group, having)).toBe(' GROUP BY col1, col2 HAVING SUM(amount) > 10000')

@@ -70,13 +70,13 @@ test('querySelectGroup(`tblName`, {}) returns \'SELECT * FROM tblName\'', () => 
   expect(querySelectGroup(table, field)).toBe('SELECT * FROM tblName')
 })
 
-test('querySelectGroup(`tblName`, {colName: `value`}) returns \'SELECT colName FROM tblName\'', () => {
+test('querySelectGroup(`tblName`, { colName: `value` }) returns \'SELECT colName FROM tblName\'', () => {
   const table = `tblName`
   const field = { colName: `value` }
   expect(querySelectGroup(table, field)).toBe('SELECT colName FROM tblName')
 })
 
-test('querySelectGroup(`tblName`, {col1: `val1`, col2: `val2`}) returns \'SELECT col1, col2 FROM tblName\'', () => {
+test('querySelectGroup(`tblName`, { col1: `val1`, col2: `val2` }) returns \'SELECT col1, col2 FROM tblName\'', () => {
   const table = `tblName`
   const field = { col1: `val1`, col2: `val2` }
   expect(querySelectGroup(table, field)).toBe('SELECT col1, col2 FROM tblName')
@@ -123,7 +123,7 @@ test('querySelectGroup(`tblName`, [`col1`, `col2`], {}) returns \'SELECT col1, c
   expect(querySelectGroup(table, field, where)).toBe('SELECT col1, col2 FROM tblName')
 })
 
-test('querySelectGroup(`tblName`, [`col1`, `col2`], {gender: `"male"`}) returns \'SELECT col1, col2 FROM tblName WHERE (gender = "male")\'', () => {
+test('querySelectGroup(`tblName`, [`col1`, `col2`], { gender: `"male"` }) returns \'SELECT col1, col2 FROM tblName WHERE (gender = "male")\'', () => {
   const table = `tblName`
   const field = [`col1`, `col2`]
   const where = { gender: `"male"` }
@@ -132,7 +132,7 @@ test('querySelectGroup(`tblName`, [`col1`, `col2`], {gender: `"male"`}) returns 
 
 
 // table: String, field: Array, where: Object, group: String
-test('querySelectGroup(`tblName`, [`col1`, `col2`], {gender: `"male"`}, `colName`) returns \'SELECT col1, col2 FROM tblName WHERE (gender = "male") GROUP BY colName\'', () => {
+test('querySelectGroup(`tblName`, [`col1`, `col2`], { gender: `"male"` }, `colName`) returns \'SELECT col1, col2 FROM tblName WHERE (gender = "male") GROUP BY colName\'', () => {
   const table = `tblName`
   const field = [`col1`, `col2`]
   const where = { gender: `"male"` }
@@ -140,7 +140,7 @@ test('querySelectGroup(`tblName`, [`col1`, `col2`], {gender: `"male"`}, `colName
   expect(querySelectGroup(table, field, where, group)).toBe('SELECT col1, col2 FROM tblName WHERE (gender = "male") GROUP BY colName')
 })
 
-test('querySelectGroup(`tblName`, [`col1`, `col2`], {gender: `"male"`}, `col1, col2`) returns \'SELECT col1, col2 FROM tblName WHERE (gender = "male") GROUP BY col1, col2\'', () => {
+test('querySelectGroup(`tblName`, [`col1`, `col2`], { gender: `"male"` }, `col1, col2`) returns \'SELECT col1, col2 FROM tblName WHERE (gender = "male") GROUP BY col1, col2\'', () => {
   const table = `tblName`
   const field = [`col1`, `col2`]
   const where = { gender: `"male"` }
@@ -150,7 +150,7 @@ test('querySelectGroup(`tblName`, [`col1`, `col2`], {gender: `"male"`}, `col1, c
 
 
 // table: String, field: Array, where: Object, group: Array
-test('querySelectGroup(`tblName`, [`col1`, `col2`], {gender: `"male"`}, [`colName`]) returns \'SELECT col1, col2 FROM tblName WHERE (gender = "male") GROUP BY colName\'', () => {
+test('querySelectGroup(`tblName`, [`col1`, `col2`], { gender: `"male"` }, [`colName`]) returns \'SELECT col1, col2 FROM tblName WHERE (gender = "male") GROUP BY colName\'', () => {
   const table = `tblName`
   const field = [`col1`, `col2`]
   const where = { gender: `"male"` }
@@ -158,7 +158,7 @@ test('querySelectGroup(`tblName`, [`col1`, `col2`], {gender: `"male"`}, [`colNam
   expect(querySelectGroup(table, field, where, group)).toBe('SELECT col1, col2 FROM tblName WHERE (gender = "male") GROUP BY colName')
 })
 
-test('querySelectGroup(`tblName`, [`col1`, `col2`], {gender: `"male"`}, [`col1`, `col2`]) returns \'SELECT col1, col2 FROM tblName WHERE (gender = "male") GROUP BY col1, col2\'', () => {
+test('querySelectGroup(`tblName`, [`col1`, `col2`], { gender: `"male"` }, [`col1`, `col2`]) returns \'SELECT col1, col2 FROM tblName WHERE (gender = "male") GROUP BY col1, col2\'', () => {
   const table = `tblName`
   const field = [`col1`, `col2`]
   const where = { gender: `"male"` }
@@ -168,7 +168,7 @@ test('querySelectGroup(`tblName`, [`col1`, `col2`], {gender: `"male"`}, [`col1`,
 
 
 // table: String, field: Array, where: Object, group: Object
-test('querySelectGroup(`tblName`, [`col1`, `col2`], {gender: `"male"`}, {colName: `value`}) returns \'SELECT col1, col2 FROM tblName WHERE (gender = "male") GROUP BY colName\'', () => {
+test('querySelectGroup(`tblName`, [`col1`, `col2`], { gender: `"male"` }, { colName: `value` }) returns \'SELECT col1, col2 FROM tblName WHERE (gender = "male") GROUP BY colName\'', () => {
   const table = `tblName`
   const field = [`col1`, `col2`]
   const where = { gender: `"male"` }
@@ -176,7 +176,7 @@ test('querySelectGroup(`tblName`, [`col1`, `col2`], {gender: `"male"`}, {colName
   expect(querySelectGroup(table, field, where, group)).toBe('SELECT col1, col2 FROM tblName WHERE (gender = "male") GROUP BY colName')
 })
 
-test('querySelectGroup(`tblName`, [`col1`, `col2`], {gender: `"male"`}, {col1: `val1`, col2: `val2`}) returns \'SELECT col1, col2 FROM tblName WHERE (gender = "male") GROUP BY col1, col2\'', () => {
+test('querySelectGroup(`tblName`, [`col1`, `col2`], { gender: `"male"` }, { col1: `val1`, col2: `val2` }) returns \'SELECT col1, col2 FROM tblName WHERE (gender = "male") GROUP BY col1, col2\'', () => {
   const table = `tblName`
   const field = [`col1`, `col2`]
   const where = { gender: `"male"` }
@@ -186,7 +186,7 @@ test('querySelectGroup(`tblName`, [`col1`, `col2`], {gender: `"male"`}, {col1: `
 
 
 // table: String, field: Array, where: Object, group: String, having: String
-test('querySelectGroup(`tblName`, [`col1`, `col2`], {gender: `"male"`}, `colName`) returns \'SELECT col1, col2 FROM tblName WHERE (gender = "male") GROUP BY colName HAVING SUM(amount) > 10000\'', () => {
+test('querySelectGroup(`tblName`, [`col1`, `col2`], { gender: `"male"` }, `colName`) returns \'SELECT col1, col2 FROM tblName WHERE (gender = "male") GROUP BY colName HAVING SUM(amount) > 10000\'', () => {
   const table = `tblName`
   const field = [`col1`, `col2`]
   const where = { gender: `"male"` }
@@ -197,7 +197,7 @@ test('querySelectGroup(`tblName`, [`col1`, `col2`], {gender: `"male"`}, `colName
 
 
 // table: String, field: Array, where: Object, group: String, having: String, order: String
-test('querySelectGroup(`tblName`, [`col1`, `col2`], {gender: `"male"`}, `colName`, `dateReg DESC`) returns \'SELECT col1, col2 FROM tblName WHERE (gender = "male") GROUP BY colName HAVING SUM(amount) > 10000 ORDER BY dateReg DESC\'', () => {
+test('querySelectGroup(`tblName`, [`col1`, `col2`], { gender: `"male"` }, `colName`, `dateReg DESC`) returns \'SELECT col1, col2 FROM tblName WHERE (gender = "male") GROUP BY colName HAVING SUM(amount) > 10000 ORDER BY dateReg DESC\'', () => {
   const table = `tblName`
   const field = [`col1`, `col2`]
   const where = { gender: `"male"` }
@@ -208,7 +208,7 @@ test('querySelectGroup(`tblName`, [`col1`, `col2`], {gender: `"male"`}, `colName
 })
 
 // table: String, field: Array, where: Object, group: String, having: String, order: String, limit: Number
-test('querySelectGroup(`tblName`, [`col1`, `col2`], {gender: `"male"`}, `colName`, `dateReg DESC`, 5) returns \'SELECT col1, col2 FROM tblName WHERE (gender = "male") GROUP BY colName HAVING SUM(amount) > 10000 ORDER BY dateReg DESC LIMIT 5\'', () => {
+test('querySelectGroup(`tblName`, [`col1`, `col2`], { gender: `"male"` }, `colName`, `dateReg DESC`, 5) returns \'SELECT col1, col2 FROM tblName WHERE (gender = "male") GROUP BY colName HAVING SUM(amount) > 10000 ORDER BY dateReg DESC LIMIT 5\'', () => {
   const table = `tblName`
   const field = [`col1`, `col2`]
   const where = { gender: `"male"` }

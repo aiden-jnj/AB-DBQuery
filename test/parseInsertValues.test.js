@@ -57,12 +57,12 @@ test('(parseInsertValues({}) occurs error', () => {
   expect(call).toThrowError(error)
 })
 
-test('(parseInsertValues({colName: `"value"`}) returns \' (colName) VALUES ("value")\'', () => {
+test('(parseInsertValues({ colName: `"value"` }) returns \' (colName) VALUES ("value")\'', () => {
   const values = { colName: `"value"` }
   expect(parseInsertValues(values)).toBe(' (colName) VALUES ("value")')
 })
 
-test('(parseInsertValues({col1: 5, col2: `"val2"`}) returns \' (col1, col2) VALUES (5, "val2")\'', () => {
+test('(parseInsertValues({ col1: 5, col2: `"val2"` }) returns \' (col1, col2) VALUES (5, "val2")\'', () => {
   const values = { col1: 5, col2: `"val2"` }
   expect(parseInsertValues(values)).toBe(' (col1, col2) VALUES (5, "val2")')
 })

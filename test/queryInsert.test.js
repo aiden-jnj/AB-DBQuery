@@ -48,13 +48,13 @@ test('queryInsert(`tblName`, {}) occurs error', () => {
   expect(call).toThrowError(error)
 })
 
-test('queryInsert(`tblName`, {colName: `"value"`}) returns \'INSERT INTO tblName (colName) VALUES ("value")\'', () => {
+test('queryInsert(`tblName`, { colName: `"value"` }) returns \'INSERT INTO tblName (colName) VALUES ("value")\'', () => {
   const table = `tblName`
   const values = { colName: `"value"` }
   expect(queryInsert(table, values)).toBe('INSERT INTO tblName (colName) VALUES ("value")')
 })
 
-test('queryInsert(`tblName`, {col1: `"val1"`, col2: `"val2"`}) returns \'INSERT INTO tblName (col1, col2) VALUES ("val1", "val2")\'', () => {
+test('queryInsert(`tblName`, { col1: `"val1"`, col2: `"val2"` }) returns \'INSERT INTO tblName (col1, col2) VALUES ("val1", "val2")\'', () => {
   const table = `tblName`
   const values = { col1: `"val1"`, col2: `"val2"` }
   expect(queryInsert(table, values)).toBe('INSERT INTO tblName (col1, col2) VALUES ("val1", "val2")')

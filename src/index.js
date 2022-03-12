@@ -282,7 +282,7 @@ const queryInsert = (table, values) => {
  * @param {String} table Table name to use in query statement.
  * @param {String|Array|Object} [field=null] Fields to be used in query statement.
  * @param {String|Array|Object} [where=null] Where condition to be used in query statement.
- * @param {String} [order=null] Order by clause to be used in query statement.
+ * @param {String|Array} [order=null] Order by clause to be used in query statement.
  * @param {Number} [limit=0] Number of rows to return to be used in query statement. If `0` no limit in used.
  * @throws {Error} Not passed table name to be used in query statement!
  * @returns {String} `SELECT` query statement created using passed arguments.
@@ -305,7 +305,7 @@ const querySelect = (table, field = null, where = null, order = null, limit = 0)
  * @param {String|Array|Object} [where=null] Where condition to be used in query statement.
  * @param {String|Array|Object} [group=null] Group by clause to be used in query statement.
  * @param {String} [having=null] Having condition to be used in group by clause of query statement.
- * @param {String} [order=null] Order by clause to be used in query statement.
+ * @param {String|Array} [order=null] Order by clause to be used in query statement.
  * @param {Number} [limit=0] Number of rows to return to be used in query statement. If `0` no limit in used.
  * @throws {Error} Not passed table name to be used in query statement!
  * @returns {String} `SELECT` query statement created using passed arguments.
@@ -334,11 +334,11 @@ const querySelectGroup = (
  *
  * @param {String} table Table name to use in query statement.
  * @param {String} [type=null] Join type to be used in table join query statement.
- * @param {String} [join=null] Table name of joined target table to use in join query statement.
+ * @param {String|Array} [join=null] Table name of joined target table to use in join query statement.
  * @param {String} [on=null] Constraint for to use table join.
  * @param {String|Array|Object} [field=null] Fields to be used in query statement.
  * @param {String|Array|Object} [where=null] Where condition to be used in query statement.
- * @param {String} [order=null] Order by clause to be used in query statement.
+ * @param {String|Array} [order=null] Order by clause to be used in query statement.
  * @param {Number} [limit=0] Number of rows to return to be used in query statement. If `0` no limit in used.
  * @throws {Error} Not passed table name to be used in query statement!
  * @returns {String} `SELECT` query statement for table join created using passed arguments.
@@ -368,13 +368,13 @@ const querySelectJoin = (
  *
  * @param {String} table Table name to use in query statement.
  * @param {String} [type=null] Join type to be used in table join query statement.
- * @param {String} [join=null] Table name of joined target table to use in join query statement.
+ * @param {String|Array} [join=null] Table name of joined target table to use in join query statement.
  * @param {String} [on=null] Constraint for to use table join.
  * @param {String|Array|Object} [field=null] Fields to be used in query statement.
  * @param {String|Array|Object} [where=null] Where condition to be used in query statement.
  * @param {String} [group=null] Group by clause to be used in query statement.
  * @param {String} [having=null] Having condition to be used in group by clause of query statement.
- * @param {String} [order=null] Order by clause to be used in query statement.
+ * @param {String|Array} [order=null] Order by clause to be used in query statement.
  * @param {Number} [limit=0] Number of rows to return to be used in query statement. If `0` no limit in used.
  * @throws {Error} Not passed table name to be used in query statement!
  * @returns {String} `SELECT` query statement for table join created using passed arguments.

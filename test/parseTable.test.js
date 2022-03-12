@@ -17,13 +17,15 @@ test('parseTable(null) occurs error', () => {
 
 // table: Object
 test('parseTable({}) occurs error', () => {
-  const call = () => parseTable({})
+  const table = {}
+  const call = () => parseTable(table)
   const error = new Error('[parseTable] Table to use in the query statement is not specified!')
   expect(call).toThrowError(error)
 })
 
-test('parseTable({tblName: `myTable`}) occurs error', () => {
-  const call = () => parseTable({ tblName: `myTable` })
+test('parseTable({ tblName: `myTable` }) occurs error', () => {
+  const table = { tblName: `myTable` }
+  const call = () => parseTable(table)
   const error = new Error('[parseTable] Table to use in the query statement is not specified!')
   expect(call).toThrowError(error)
 })

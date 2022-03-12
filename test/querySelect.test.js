@@ -71,13 +71,13 @@ test('querySelect(`tblName`, {}) returns \'SELECT * FROM tblName\'', () => {
   expect(querySelect(table, field)).toBe('SELECT * FROM tblName')
 })
 
-test('querySelect(`tblName`, {colName: `value`}) returns \'SELECT colName FROM tblName\'', () => {
+test('querySelect(`tblName`, { colName: `value` }) returns \'SELECT colName FROM tblName\'', () => {
   const table = `tblName`
   const field = { colName: `value` }
   expect(querySelect(table, field)).toBe('SELECT colName FROM tblName')
 })
 
-test('querySelect(`tblName`, {col1: `val1`, col2: `val2`}) returns \'SELECT col1, col2 FROM tblName\'', () => {
+test('querySelect(`tblName`, { col1: `val1`, col2: `val2` }) returns \'SELECT col1, col2 FROM tblName\'', () => {
   const table = `tblName`
   const field = { col1: `val1`, col2: `val2` }
   expect(querySelect(table, field)).toBe('SELECT col1, col2 FROM tblName')
