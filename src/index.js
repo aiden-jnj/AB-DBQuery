@@ -409,8 +409,9 @@ const querySelectJoinGroup = (
  * @param {Object} values Values object that consisting of field names and values to be used in `UPDATE` query statement.
  * @param {String|Array|Object} where Where condition to be used in query statement.
  * @throws {Error} Not passed table name to be used in query statement!
- * @throws {Error} Not passed object consisting of field and value to be used in UPDATE query statement!
  * @throws {Error} Not passed update condition clause to be used in UPDATE query statement!
+ * @throws {Error} Not passed object consisting of field and value to be used in UPDATE query statement!
+ * @throws {Error} Object consisting of fields and values for use in an UPDATE query statement was specified incorrectly!
  * @returns {String} `UPDATE` query statement created using passed arguments.
  */
 const queryUpdate = (table, values, where) => {
