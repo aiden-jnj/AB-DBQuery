@@ -65,7 +65,15 @@ const parseInsertValues = values => {
   } else if (values.constructor.name === 'Object') {
     const keys = Object.keys(values)
     if (keys.length) {
-      const vals = Object.values(values)
+      let vals = Object.values(values)
+      vals = vals.map(val => {
+        if (val.constructor.name === 'String') {
+          if (val.substring(0, 1) !== '"') { val = `"${val}` }
+          if (val.substring(val.length - 1) !== '"') { val = `${val}"` }
+        }
+
+        return val
+      })
       clause += ` (${keys.join(', ')}) VALUES (${vals.join(', ')})`
     }
   }
@@ -181,7 +189,12 @@ const parseUpdateValues = values => {
     if (keys.length) {
       clause += ` SET `
       keys.forEach((key, idx) => {
-        clause += `${key} = ${values[key]}`
+        let val = values[key]
+        if (val.constructor.name === 'String') {
+          if (val.substring(0, 1) !== '"') { val = `"${val}` }
+          if (val.substring(val.length - 1) !== '"') { val = `${val}"` }
+        }
+        clause += `${key} = ${val}`
         clause += idx < keys.length - 1 ? `, ` : ``
       })
     }

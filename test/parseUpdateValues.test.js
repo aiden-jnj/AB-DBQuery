@@ -45,7 +45,6 @@ test('(parseUpdateValues([`col1 = val1`, `col2 = val2`]) occurs error', () => {
   expect(call).toThrowError(error)
 })
 
-
 // values: Object
 test('(parseUpdateValues({}) occurs error', () => {
   const values = {}
@@ -61,5 +60,10 @@ test('(parseUpdateValues({ colName: `"value"` }) returns \' SET colName = "value
 
 test('(parseUpdateValues({ col1: 5, col2: `"val2"` }) returns \' SET col1 = 5, col2 = "val2"\'', () => {
   const values = { col1: 5, col2: `"val2"` }
+  expect(parseUpdateValues(values)).toBe(' SET col1 = 5, col2 = "val2"')
+})
+
+test('(parseUpdateValues({ col1: 5, col2: `val2` }) returns \' SET col1 = 5, col2 = "val2"\'', () => {
+  const values = { col1: 5, col2: `val2` }
   expect(parseUpdateValues(values)).toBe(' SET col1 = 5, col2 = "val2"')
 })

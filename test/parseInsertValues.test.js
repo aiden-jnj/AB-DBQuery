@@ -48,7 +48,6 @@ test('(parseInsertValues([`"val1"`, `"val2"`]) occurs error', () => {
   expect(parseInsertValues(values)).toBe(' VALUES ("val1", "val2")')
 })
 
-
 // values: Object
 test('(parseInsertValues({}) occurs error', () => {
   const values = {}
@@ -64,5 +63,10 @@ test('(parseInsertValues({ colName: `"value"` }) returns \' (colName) VALUES ("v
 
 test('(parseInsertValues({ col1: 5, col2: `"val2"` }) returns \' (col1, col2) VALUES (5, "val2")\'', () => {
   const values = { col1: 5, col2: `"val2"` }
+  expect(parseInsertValues(values)).toBe(' (col1, col2) VALUES (5, "val2")')
+})
+
+test('(parseInsertValues({ col1: 5, col2: `val2` }) returns \' (col1, col2) VALUES (5, "val2")\'', () => {
+  const values = { col1: 5, col2: `val2` }
   expect(parseInsertValues(values)).toBe(' (col1, col2) VALUES (5, "val2")')
 })
